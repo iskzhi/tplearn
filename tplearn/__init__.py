@@ -1,1 +1,1 @@
-from .tplearn import *
+from .regression import *

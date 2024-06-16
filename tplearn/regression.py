@@ -8,7 +8,7 @@ class MaxPlusRegression:
     ----------
     gle : bool, default=False
         Whether to fit along GLE.
-        (If True, fit alnog MMAE.)
+        (If False, fit alnog MMAE.)
     
     Attributes
     ----------
@@ -39,6 +39,17 @@ class MaxPlusRegression:
         self : object
             Fitted Estimator.
         """
+        try:
+            x = np.asarray(x)
+            y = np.asarray(y)
+        except ValueError as e:
+            print(f"Error: {e}")
+            return None
+
+        if x.shape[0] != y.shape[0]:
+            print("Error: x and y must have the same number of samples.")
+            return None
+        
         # GLE
         a_hat = np.min(y-x)
         b_hat = np.min(y)
@@ -49,6 +60,13 @@ class MaxPlusRegression:
 
         # MMAE
         y_hat = self.predict(x)
+
+        try:
+            self.mu_ = np.max(y-y_hat)/2
+        except ValueError as e:
+            print(f"Error: {e}")
+            return None
+        
         self.mu_ = np.max(y-y_hat)/2
         a_tilde = a_hat + self.mu_
         b_tilde = b_hat + self.mu_
@@ -70,6 +88,12 @@ class MaxPlusRegression:
         y_pred: array
             Returns predicted values.
         """
+        try:
+            x = np.asarray(x)
+        except ValueError as e:
+            print(f"Error: {e}")
+            return None
+        
         a = self.coef_[0]
         b = self.coef_[-1]
         arr_b = np.ones(len(x))*b
@@ -94,6 +118,17 @@ class MaxPlusRegression:
         C: float
             RMSE.
         """
+        try:
+            x = np.asarray(x)
+            y = np.asarray(y)
+        except ValueError as e:
+            print(f"Error: {e}")
+            return None
+
+        if x.shape[0] != y.shape[0]:
+            print("Error: x and y must have the same number of samples.")
+            return None
+        
         y_true = y
         y_pred = self.predict(x)
 
@@ -116,8 +151,22 @@ class MaxPlusRegression:
         C: float
             Uniform score.
         """
+        try:
+            x = np.asarray(x)
+            y = np.asarray(y)
+        except ValueError as e:
+            print(f"Error: {e}")
+            return None
+
+        if x.shape[0] != y.shape[0]:
+            print("Error: x and y must have the same number of samples.")
+            return None
+        
         y_true = y
         y_pred = self.predict(x)
+
+        if y_pred is None:
+            return None
 
         return np.max(np.abs(y_true - y_pred))
 
@@ -130,7 +179,7 @@ class MinPlusRegression:
     ----------
     gue : bool, default=False
         Whether to fit along GUE.
-        (If True, fit alnog MMAE.)
+        (If False, fit alnog MMAE.)
 
     Attributes
     ----------
@@ -139,7 +188,7 @@ class MinPlusRegression:
 
     Examples
     --------
-    >>> reg = MaxPlusRegression().fit(x, y)
+    >>> reg = MinPlusRegression().fit(x, y)
     """
 
     def __init__(self, gue=False) -> None:
@@ -162,6 +211,17 @@ class MinPlusRegression:
         self : object
             Fitted Estimator.
         """
+        try:
+            x = np.asarray(x)
+            y = np.asarray(y)
+        except ValueError as e:
+            print(f"Error: {e}")
+            return None
+
+        if x.shape[0] != y.shape[0]:
+            print("Error: x and y must have the same number of samples.")
+            return None
+
         # GUE
         a_hat = np.max(y-x)
         b_hat = np.max(y)
@@ -172,7 +232,11 @@ class MinPlusRegression:
 
         # MMAE
         y_hat = self.predict(x)
-        self.mu_ = np.min(y-y_hat)/2
+        try:
+            self.mu_ = np.min(y-y_hat)/2
+        except ValueError as e:
+            print(f"Error: {e}")
+            return None
         a_tilde = a_hat + self.mu_
         b_tilde = b_hat + self.mu_
         self.coef_ = [a_tilde, b_tilde]
@@ -193,6 +257,12 @@ class MinPlusRegression:
         y_pred: array
             Returns predicted values.
         """
+        try:
+            x = np.asarray(x)
+        except ValueError as e:
+            print(f"Error: {e}")
+            return None
+
         a = self.coef_[0]
         b = self.coef_[-1]
         arr_b = np.ones(len(x))*b
@@ -217,8 +287,22 @@ class MinPlusRegression:
         C: float
             RMSE.
         """
+        try:
+            x = np.asarray(x)
+            y = np.asarray(y)
+        except ValueError as e:
+            print(f"Error: {e}")
+            return None
+
+        if x.shape[0] != y.shape[0]:
+            print("Error: x and y must have the same number of samples.")
+            return None
+
         y_true = y
         y_pred = self.predict(x)
+
+        if y_pred is None:
+            return None
 
         return np.sqrt(np.mean((y_true - y_pred)**2))
 
@@ -239,7 +323,21 @@ class MinPlusRegression:
         C: float
             Uniform score.
         """
+        try:
+            x = np.asarray(x)
+            y = np.asarray(y)
+        except ValueError as e:
+            print(f"Error: {e}")
+            return None
+
+        if x.shape[0] != y.shape[0]:
+            print("Error: x and y must have the same number of samples.")
+            return None
+
         y_true = y
         y_pred = self.predict(x)
+
+        if y_pred is None:
+            return None
 
         return np.max(np.abs(y_true - y_pred))
