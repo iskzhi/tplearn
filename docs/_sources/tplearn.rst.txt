@@ -1,0 +1,21 @@
+tplearn package
+===============
+
+Submodules
+----------
+
+tplearn.tplearn module
+----------------------
+
+.. automodule:: tplearn.tplearn
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: tplearn
+   :members:
+   :undoc-members:
+   :show-inheritance:
