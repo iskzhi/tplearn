@@ -1,0 +1,7 @@
+trplearn.regression module
+==========================
+
+.. automodule:: trplearn.regression
+   :members:
+   :undoc-members:
+   :show-inheritance:

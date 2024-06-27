@@ -1,7 +1,0 @@
-tplearn.regression module
-=========================
-
-.. automodule:: tplearn.regression
-   :members:
-   :undoc-members:
-   :show-inheritance:

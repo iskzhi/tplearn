@@ -1,7 +1,0 @@
-tplearn.tropalg module
-======================
-
-.. automodule:: tplearn.tropalg
-   :members:
-   :undoc-members:
-   :show-inheritance:

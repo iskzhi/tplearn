@@ -1,0 +1,19 @@
+trplearn package
+================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   trplearn.regression
+   trplearn.trpalg
+
+Module contents
+---------------
+
+.. automodule:: trplearn
+   :members:
+   :undoc-members:
+   :show-inheritance:

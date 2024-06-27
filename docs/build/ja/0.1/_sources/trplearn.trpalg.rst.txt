@@ -1,0 +1,7 @@
+trplearn.trpalg module
+======================
+
+.. automodule:: trplearn.trpalg
+   :members:
+   :undoc-members:
+   :show-inheritance:
